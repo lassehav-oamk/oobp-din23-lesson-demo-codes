@@ -65,16 +65,58 @@ function printCountryData(countries) {
     console.log("Country name: " + currentCountry.name);
     console.log("Population: " + currentCountry.population);
     console.log("Names of five biggest cities and population: ");
+    let sumOfPopulationInBiggestCities = 0;
     currentCountry.largestCities.forEach((currentCity, index) => {
       console.log(
         `${index + 1}. ${currentCity.name}, population is: ${
           currentCity.population
         }`
       );
+      sumOfPopulationInBiggestCities += currentCity.population;
     });
-
+    console.log(
+      "Sum of population in five biggest cities: " +
+        sumOfPopulationInBiggestCities
+    );
+    let percentageOfPopInFiveCitiesToCountryPop =
+      (sumOfPopulationInBiggestCities / currentCountry.population) * 100;
+    console.log(
+      "Percentage of pop in five biggest cities: " +
+        percentageOfPopInFiveCitiesToCountryPop
+    );
     console.log("\n");
   });
+}
+
+/* Same function as printCountryData, but using for loop instead of forEach */
+function printCountryDataUsingForLoop(countries) {
+  for (let i = 0; i < countries.length; i++) {
+    let currentCountry = countries[i];
+    console.log("Country name: " + currentCountry.name);
+    console.log("Population: " + currentCountry.population);
+    console.log("Names of five biggest cities and population: ");
+    let sumOfPopulationInBiggestCities = 0;
+    for (let j = 0; j < currentCountry.largestCities.length; j++) {
+      let currentCity = currentCountry.largestCities[j];
+      console.log(
+        `${j + 1}. ${currentCity.name}, population is: ${
+          currentCity.population
+        }`
+      );
+      sumOfPopulationInBiggestCities += currentCity.population;
+    }
+    console.log(
+      "Sum of population in five biggest cities: " +
+        sumOfPopulationInBiggestCities
+    );
+    let percentageOfPopInFiveCitiesToCountryPop =
+      (sumOfPopulationInBiggestCities / currentCountry.population) * 100;
+    console.log(
+      "Percentage of pop in five biggest cities: " +
+        percentageOfPopInFiveCitiesToCountryPop
+    );
+    console.log("\n");
+  }
 }
 
 printCountryData(arrayOfCountries);
