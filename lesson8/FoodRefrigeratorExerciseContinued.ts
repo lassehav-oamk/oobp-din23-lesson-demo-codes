@@ -60,11 +60,13 @@ class Refrigerator {
 
   getAndEatFood(nameOfFood : string) {
     let foundFood : Food | undefined = undefined;
+    let indexNumberOfFoundFood : number = -1;
 
     // Find food which has the same name as nameOfFood from our storage
     for(let i = 0; i < this.#storage.length; i++) {
       if(nameOfFood === this.#storage[i].getName()) {
         foundFood = this.#storage[i];
+        indexNumberOfFoundFood = i;
         break;
       }
     }
@@ -76,7 +78,13 @@ class Refrigerator {
 
     // Consume the food
     foundFood.eatOne();
-
+    // Check if the quantity of this food is zero
+    if(foundFood.getQuantity() === 0) {
+      // remove the food from the refrigerator
+      // How to remove an element from an array?
+      //const indexNumberOfFoundFood = this.#storage.indexOf(foundFood);
+      this.#storage.splice(indexNumberOfFoundFood, 1);
+    }
   }
 }
 
