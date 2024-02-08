@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <style>
+      .productCard {
+        display: flex;
+      }
+      .productCard img {
+        width: 200px;
+      }
+
+      .productInfo {
+        padding-left: 40px;
+      }
+
+      .productInfo h2 {
+        font-size: 18px;
+        font-weight: normal;
+      }
+    </style>
+  </head>
+  <body>
+    <button onclick="task1()">Add product With Create Element</button>
+    <!-- Here is the HTML structure for implementation target
+
+    <div class="productList">
+      <div class="productCard">
+        <img src="images/eos-90d.jpg">
+        <div class="productInfo">
+          <h1>EOS 90D</h1>
+          <h2>
+            32.5 megapixels, 10 frames per second
+          </h2>
+          <h2>
+            4K video, 1300 frames per battery, ISO 25600
+          </h2>
+        </div>
+      </div>
+    </div>
+    -->
+    <script>
+      // Your code here
+      function task1(){
+        const body = document.querySelector('body');
+
+        const productListDiv = document.createElement('div');
+        productListDiv.classList.add('productList');
+
+        const productCardDiv = document.createElement('div');
+        productCardDiv.classList.add('productCard');
+
+        const img = document.createElement('img');
+        img.src = 'https://i1.adis.ws/i/canon/eos-90d_800x800_b7eaf1f35955456ea3198176be23ae3b?$prod-gallery-1by1$';
+
+        const productInfoDiv = document.createElement('div');
+        productInfoDiv.classList.add('productInfo');
+
+        const h1ProductTitle = document.createElement('h1');
+        h1ProductTitle.innerText = 'EOS 90D';
+
+        h2ProductDescription1 = document.createElement('h2');
+        h2ProductDescription1.innerText = '32.5 megapixels, 10 frames per second';
+
+        h2ProductDescription2 = document.createElement('h2');
+        h2ProductDescription2.innerText = '4K video, 1300 frames per battery, ISO 25600';
+
+        productListDiv.appendChild(productCardDiv);
+        productCardDiv.appendChild(img);
+        productCardDiv.appendChild(productInfoDiv);
+        productInfoDiv.appendChild(h1ProductTitle);
+        productInfoDiv.appendChild(h2ProductDescription1);
+        productInfoDiv.appendChild(h2ProductDescription2);
+        body.appendChild(productListDiv);
+
+
+      }
+    </script>
+  </body>
+</html>

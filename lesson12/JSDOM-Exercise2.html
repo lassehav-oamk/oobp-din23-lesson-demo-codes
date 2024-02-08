@@ -1,0 +1,130 @@
+<html>
+  <head>
+    <style>
+      .demo {
+        font-style: italic;
+      }
+
+      .targetElement {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Exercise template for modifying the DOM</h1>
+    <div>
+      <p id="ExampleID" class="demo">Hello world</p>
+      <p class="demo" name="testName">Some content of paragraph</p>
+      <p class="demo" name="testName">Another content of paragraph</p>
+    </div>
+    <div>
+      <b>Task 1</b>
+      Your task is to write code to replace the "Hello world" text above in the paragraph with text "I can modify text".
+      Create a button here below to activate your code when you click on it.
+
+      <pre>
+      Steps to do this task:
+      * Create a button
+      * Create a click handler (function) for the button
+      * In the click handler
+      ** Get the element which we want to modify
+      ** With the element ready, modify the text content of the element
+      </pre>
+
+      <button onclick="task1ClickHandler()">Click me for task 1</button>
+    </div>
+    <div>
+      <b>Task 2</b>
+      Write code which replaces the children of all divs with text "I have replaced everything".
+
+      <button onclick="task2ClickHandler()">Click to execute task2</button>
+    </div>
+    <div>
+      <b>Task 3</b>
+      Write code, which inserts into a single div containing an image (https://www.w3.org/html/logo/img/html5-display.png) and text "AN HTML5 LOGO". That content should be laid out vertically stacked and centered on the page.
+      <button onclick="task3ClickHandler()">Click to execute task3</button>
+      <div id="imageTarget">        
+      </div>
+    </div>
+
+    <script>
+      // Write your javascript code here.
+      function task1ClickHandler() {
+        console.log('Task 1 clicked');
+
+        // Get the element which we want to modify
+        const element = document.querySelector('#ExampleID');
+        if(element) {
+          // With the element ready, modify the text content of the element
+          element.innerText = 'I can modify text';
+        }
+      }
+
+      function task2ClickHandler() {
+        // replaces the children of all divs with text "I have replaced everything".
+        const divs = document.querySelectorAll('div');
+        for(let i = 0; i < divs.length; i++) {
+          divs[i].innerText = 'I have replaced everything';
+        }
+      }
+
+      /*
+      CSS styling for the element
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      HTML structure:
+      <div>
+        <img src="https://www.w3.org/html/logo/img/html5-display.png" />
+      </div>
+      <p>AN HTML5 LOGO</p>
+      */
+      function task3ClickHandler() {
+        // step 1 get target div
+        const targetElement = document.querySelector('#imageTarget');
+        if(targetElement === null) {
+          console.error('Target element not found');
+          return;
+        }
+        
+        // step 2 create div element to hold the img
+        const div = document.createElement('div');
+
+        // step 3 create img element
+        const img = document.createElement('img');
+
+        // step 4 create the p element
+        const p = document.createElement('p');
+
+        // step 5 add img attribute src
+        img.src = 'https://www.w3.org/html/logo/img/html5-display.png';
+
+        // step 6 add p element text
+        p.innerText = 'AN HTML5 LOGO';
+
+        // step 7 append img to div
+        div.appendChild(img);
+
+        // step 8 append div to target element
+        targetElement.appendChild(div);
+
+        // step 9 append p to target element
+        targetElement.appendChild(p);
+
+        // step 10 add css styling to the target element
+        /*targetElement.style.display = 'flex';
+        targetElement.style.flexDirection = 'column';
+        targetElement.style.justifyContent = 'center';
+        targetElement.style.alignItems = 'center';*/
+
+        // alternative way to add css styling by adding class to the target element
+        targetElement.classList.add('targetElement');
+      }
+    </script>
+  </body>
+</html>
