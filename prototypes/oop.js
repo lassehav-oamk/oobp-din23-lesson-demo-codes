@@ -1,4 +1,4 @@
-function Car(brand, registration) {
+function Car(brand) {
   this.brand = brand;
   this.speed = 0;
 }
@@ -8,7 +8,7 @@ Car.prototype.increaseSpeed = function() {
 }
 
 Car.prototype.displaySpeed = function() {
-  console.log(this.registration + ", speed: " + this.speed)
+  console.log(this.speed + " + this.speed");
 }
 
 let car = new Car('Toyota');
