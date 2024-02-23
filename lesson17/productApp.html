@@ -21,9 +21,16 @@
     <script src="productApp.js"></script>
   </head>
   <body>
-    <div>
-      <h1>Fetch Example to send HTTP request to DummyJSON for getting product data</h1>
-      <button onclick="getAndCreateProductElements()">Get the products</button>
+    <h1>Shopping Cart Example</h1>
+    <div id="uiContent">      
+      <div 
+        onclick="openShoppingCart()"
+        style="border: 1px solid black; background-color: lightgreen; font-size: 16; padding: 20px; display:inline-block; cursor: pointer">
+        Open Shopping Cart
+      </div>
+
+      <h2>Search for products</h2>
+      <input type="text" id="searchQuery"><button onclick="getAndCreateProductElements()">Get the products</button>
       <div id="productDataTarget"></div>
     </div>
   </body>
