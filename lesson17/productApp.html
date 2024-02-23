@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .productCard {
+        display: flex;
+      }
+      .productCard img {
+        width: 200px;
+      }
+
+      .productInfo {
+        padding-left: 40px;
+      }
+
+      .productInfo h2 {
+        font-size: 18px;
+        font-weight: normal;
+      }
+    </style>
+    <script src="productApp.js"></script>
+  </head>
+  <body>
+    <div>
+      <h1>Fetch Example to send HTTP request to DummyJSON for getting product data</h1>
+      <button onclick="getAndCreateProductElements()">Get the products</button>
+      <div id="productDataTarget"></div>
+    </div>
+  </body>
+</html>
