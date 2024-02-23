@@ -60,6 +60,10 @@ class Product {
   getTotalPrice() {
     return this.#price * this.#quantity;
   }
+
+  setQuantity(quantity) {
+    this.#quantity = quantity;
+  }
 }
 
 const cart = new ShoppingCart();
@@ -189,7 +193,12 @@ function openShoppingCart() {
 
     itemNameTd.innerText = cartItems[i].name;
     itemPriceTd.innerText = cartItems[i].price;
-    itemQuantityTd.innerText = cartItems[i].quantity;
+    //itemQuantityTd.innerText = cartItems[i].quantity;
+    const quantityInput = document.createElement("input");
+    quantityInput.type = "number";
+    quantityInput.value = cartItems[i].quantity;
+    itemQuantityTd.appendChild(quantityInput);
+
     itemTotalPriceTd.innerText = cartItems[i].getTotalPrice();
 
     row.appendChild(itemNameTd);
@@ -198,6 +207,17 @@ function openShoppingCart() {
     row.appendChild(itemTotalPriceTd);
 
     tbody.appendChild(row);
+
+    // add event handlers
+    quantityInput.addEventListener("change", function () {
+      console.log("quantity changed");
+      console.log(quantityInput.value);
+      cartItems[i].setQuantity(parseInt(quantityInput.value));
+      console.log(
+        "current total price of item " + cartItems[i].getTotalPrice()
+      );
+      itemTotalPriceTd.innerText = cartItems[i].getTotalPrice();
+    });
   }
 
   shoppingCartTable.appendChild(tbody);
