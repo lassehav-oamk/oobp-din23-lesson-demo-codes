@@ -4,7 +4,15 @@ class ShoppingCart {
   }
 
   addItem(product) {
-    this.items.push(product);
+    // check if the product already exists in the cart
+    const searchResult = this.items.find((item) => item.id === product.id);
+    if (searchResult !== undefined) {
+      // if yes, increase the quantity
+      searchResult.increaseQuantity();
+    } else {
+      // if no, add to cart
+      this.items.push(product);
+    }
   }
 
   removeItem(product) {
@@ -16,7 +24,15 @@ class ShoppingCart {
   }
 
   getTotal() {
-    return this.items.reduce((acc, item) => acc + item.price, 0);
+    return this.items.reduce((acc, item) => acc + item.getTotalPrice(), 0);
+  }
+
+  getItemCount() {
+    let itemCount = this.items.reduce((accumulatorSum, item) => {
+      return accumulatorSum + item.quantity;
+    }, 0);
+
+    return itemCount;
   }
 }
 
@@ -144,6 +160,9 @@ function createProductCard(
     console.log("Add to Cart button clicked for " + productName);
     const product = new Product(productId, productName, productPrice, 1);
     cart.addItem(product);
+
+    // update the cart count
+    document.querySelector("span#cartCount").innerText = cart.getItemCount();
   });
 
   productCardDiv.appendChild(img);
@@ -197,6 +216,7 @@ function openShoppingCart() {
     const quantityInput = document.createElement("input");
     quantityInput.type = "number";
     quantityInput.value = cartItems[i].quantity;
+    quantityInput.min = 1;
     itemQuantityTd.appendChild(quantityInput);
 
     itemTotalPriceTd.innerText = cartItems[i].getTotalPrice();
@@ -217,12 +237,22 @@ function openShoppingCart() {
         "current total price of item " + cartItems[i].getTotalPrice()
       );
       itemTotalPriceTd.innerText = cartItems[i].getTotalPrice();
+
+      // update the total price of the cart
+      const cartTotalDiv = document.querySelector("div#cartTotal");
+      cartTotalDiv.innerText = "Total: " + cart.getTotal() + "€";
     });
   }
 
   shoppingCartTable.appendChild(tbody);
 
   uiContentElement.appendChild(shoppingCartTable);
+
+  // Add cart total
+  const cartTotalDiv = document.createElement("div");
+  cartTotalDiv.innerText = "Total: " + cart.getTotal() + "€";
+  cartTotalDiv.id = "cartTotal";
+  uiContentElement.appendChild(cartTotalDiv);
 
   // add button to back to product search view
   const backButtonDiv = document.createElement("div");
@@ -255,7 +285,11 @@ function createProductSearchView() {
   const openShoppingCartButton = document.createElement("div");
   openShoppingCartButton.onclick = openShoppingCart;
   openShoppingCartButton.classList.add("button");
+  openShoppingCartButton.id = "openShoppingCartButton";
   openShoppingCartButton.innerText = "Open Shopping Cart";
+  const cartCountSpan = document.createElement("span");
+  cartCountSpan.id = "cartCount";
+  openShoppingCartButton.appendChild(cartCountSpan);
 
   const h2SearchForProducts = document.createElement("h2");
   h2SearchForProducts.innerText = "Search for products";
