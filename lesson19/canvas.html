@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+  </head>
+  <body>
+    <h1>Canvas Demo</h1>
+    <canvas height="600" width="800" id="surface" style="border: 1px solid black;"></canvas>
+    <script>
+      const canvas = document.getElementById('surface');
+      const ctx = canvas.getContext('2d');
+      const CANVAS_WIDTH = canvas.width;
+      const CANVAS_HEIGHT = canvas.height;
+
+      
+      class Ball {
+        constructor(x, y, radius, direction, speed, color) {
+          this.xCoord = x;
+          this.yCoord = y;
+          this.radius = radius;
+          this.speed = speed;
+          this.direction = direction;
+          this.color = color || 'red';
+        }
+
+        update() {
+          if((this.xCoord > CANVAS_WIDTH) || (this.xCoord < 0)) {
+            this.direction = Math.PI - this.direction;
+          }
+          else if((this.yCoord < 0) || (this.yCoord > CANVAS_HEIGHT)){
+            this.direction = -this.direction;
+          }          
+          this.xCoord += Math.cos(this.direction) * this.speed;
+          this.yCoord -= Math.sin(this.direction) * this.speed;
+        }
+
+        draw() {          
+          ctx.fillStyle = this.color;
+          ctx.beginPath();
+          ctx.arc(this.xCoord, this.yCoord, this.radius, 0, 2 * Math.PI, false);
+          ctx.fill();
+          ctx.closePath();
+        }
+      }
+      
+      const ballArray = [];
+      for(let i = 0; i < 10; i++) {
+        let randomMovementAngleDegrees = Math.random() * 360;
+        let randomX = Math.random() * CANVAS_WIDTH;
+        let randomY = Math.random() * CANVAS_HEIGHT;
+        let randomRadius = Math.random() * 50;
+        let randomColor = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+        ballArray.push(new Ball(randomX, randomY, randomRadius, randomMovementAngleDegrees, Math.random() * 10 + 1, randomColor));        
+      }
+            
+
+      function draw() {
+        ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+        for(let i = 0; i < ballArray.length; i++) {
+          ballArray[i].update();
+          ballArray[i].draw();
+        }        
+
+        window.requestAnimationFrame(draw);
+      }
+
+      window.requestAnimationFrame(draw);
+
+    </script>
+  </body>
+</html>
